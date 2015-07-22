@@ -30,10 +30,15 @@ X = [ones(m, 1) X];
 %       for each row.
 %       
 
+% mX(n+1) * (n+1)x1
+% sigmoid(X*theta)
 
+% num_labels*(n+1)
+% all_theta
 
-
-
+% mX(n+1)*(n+1)xnum_labels
+% sigmoid(X*all_theta')
+[m, p] = max(sigmoid(X*all_theta'), [], 2);
 
 
 % =========================================================================
