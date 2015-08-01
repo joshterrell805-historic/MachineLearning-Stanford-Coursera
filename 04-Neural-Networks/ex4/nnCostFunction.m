@@ -86,9 +86,15 @@ endfor
 
 J = J / m
 
-% J = -sum(sum(yAll' * log(a3))) - sum(sum((1 .- yAll)' * log(1 .- a3)));
 
+% now regularize
 
+t1 = Theta1(:, 2:end);
+t2 = Theta2(:, 2:end);
+
+r = lambda / 2 / m * (sum(sum(t1 .^ 2)) + sum(sum(t2 .^ 2)));
+
+J = J + r;
 
 
 
