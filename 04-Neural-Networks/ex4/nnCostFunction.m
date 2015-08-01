@@ -62,6 +62,31 @@ Theta2_grad = zeros(size(Theta2));
 %               and Theta2_grad from Part 2.
 %
 
+% 5000 x 10
+yAll = zeros(m, num_labels);
+for i = 1:m
+  yAll(i, y(i)) = 1;
+endfor
+
+% size(Theta1) 25x401
+% size(Theta2) 10x26
+
+% 5000 x 400
+a1 = X;
+
+a2 = sigmoid(Theta1 * [ones(m, 1) a1]')';
+% size(a2) 5000 x 25
+
+a3 = sigmoid(Theta2 * [ones(m, 1) a2]')';
+% size(a3) 5000 x 10
+
+for i = 1:m
+  J = J + (-yAll(i, :) * log(a3(i, :))' - (1 .- yAll(i, :)) * log(1 .- a3(i, :))');
+endfor
+
+J = J / m
+
+% J = -sum(sum(yAll' * log(a3))) - sum(sum((1 .- yAll)' * log(1 .- a3)));
 
 
 
