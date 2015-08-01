@@ -74,17 +74,19 @@ endfor
 % 5000 x 400
 a1 = X;
 
-a2 = sigmoid(Theta1 * [ones(m, 1) a1]')';
-% size(a2) 5000 x 25
+% 5000 x 25
+z2 = (Theta1 * [ones(m, 1) a1]')';
+a2 = sigmoid(z2);
 
-a3 = sigmoid(Theta2 * [ones(m, 1) a2]')';
-% size(a3) 5000 x 10
+% 5000 x 10
+z3 = (Theta2 * [ones(m, 1) a2]')';
+a3 = sigmoid(z3);
 
 for i = 1:m
   J = J + (-yAll(i, :) * log(a3(i, :))' - (1 .- yAll(i, :)) * log(1 .- a3(i, :))');
 endfor
 
-J = J / m
+J = J / m;
 
 
 % now regularize
@@ -97,18 +99,24 @@ r = lambda / 2 / m * (sum(sum(t1 .^ 2)) + sum(sum(t2 .^ 2)));
 J = J + r;
 
 
+% %%%%% gradient %%%%% %
+
+% 5000 x 10
+d3 = a3 .- yAll;
+
+% 5000 x 25
+d2 = (d3 * Theta2(:, 2:end)) .* sigmoidGradient(z2);
 
 
+% 10x26 Theta2_grad
+a2_with_a0 = [ones(m, 1) a2];
+D2 = d3' * a2_with_a0;
+Theta2_grad = D2 / m;
 
-
-
-
-
-
-
-
-
-
+% 25x401 Theta1_grad
+a1_with_a0 = [ones(m, 1) a1];
+D1 = d2' * a1_with_a0;
+Theta1_grad = D1 / m;
 
 
 % -------------------------------------------------------------
