@@ -112,11 +112,15 @@ d2 = (d3 * Theta2(:, 2:end)) .* sigmoidGradient(z2);
 a2_with_a0 = [ones(m, 1) a2];
 D2 = d3' * a2_with_a0;
 Theta2_grad = D2 / m;
+reg = lambda / m * [zeros(size(Theta2, 1), 1) Theta2(:, 2:end)];
+Theta2_grad = Theta2_grad + reg;
 
 % 25x401 Theta1_grad
 a1_with_a0 = [ones(m, 1) a1];
 D1 = d2' * a1_with_a0;
 Theta1_grad = D1 / m;
+reg = lambda / m * [zeros(size(Theta1, 1), 1) Theta1(:, 2:end)];
+Theta1_grad = Theta1_grad + reg;
 
 
 % -------------------------------------------------------------
