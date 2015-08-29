@@ -19,11 +19,17 @@ grad = zeros(size(theta));
 %               You should set J to the cost and grad to the gradient.
 %
 
+% X     [m, n+1]
+% y     [m, 1]
+% theta [n+1, 1]
+% z,h   [m, 1]
+z = X * theta;
+% h = 1 / (1 + exp(-z));
+% looks like no sigmoid :O!
+h = z;
 
-
-
-
-
+J = 1 / (2 * m) * sum((h - y) .^ 2);
+J = J + lambda / (2 * m) * sum(theta(2:end, :) .^2);
 
 
 
