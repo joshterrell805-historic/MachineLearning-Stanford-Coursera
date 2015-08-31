@@ -31,6 +31,10 @@ h = z;
 J = 1 / (2 * m) * sum((h - y) .^ 2);
 J = J + lambda / (2 * m) * sum(theta(2:end, :) .^2);
 
+reg = theta * lambda / m;
+reg(1) = 0;
+grad = (1 / m) * ((h - y)' * X)' + reg;
+
 
 
 
