@@ -53,11 +53,15 @@ error_val   = zeros(m, 1);
 
 % ---------------------- Sample Solution ----------------------
 
-
-
-
-
-
+for i = 1:m
+  theta = trainLinearReg(X(1:i, :), y(1:i), lambda);
+  % use lambda = 0 because finding error uses no regularization term
+  [J, grad] = linearRegCostFunction(X(1:i, :), y(1:i), theta, 0);
+  error_train(i) = J;
+  % use validation set, the entire thing... no bias on untrained data.
+  [J, grad] = linearRegCostFunction(Xval, yval, theta, 0);
+  error_val(i) = J;
+end
 
 % -------------------------------------------------------------
 
