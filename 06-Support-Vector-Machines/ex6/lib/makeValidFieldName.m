@@ -9,7 +9,9 @@ function str = makeValidFieldName(str)
         if(~isoct)
             str=regexprep(str,'^([^A-Za-z])','x0x${sprintf(''%X'',unicode2native($1))}_','once');
         else
-            str=sprintf('x0x%X_%s',char(str(1)),str(2:end));
+            % Hard to believe but sprintf("%X") is broken in Octave 4.0.0
+            % str=sprintf('x0x%X_%s',char(str(1)),str(2:end));
+            str=sprintf('x0x%s_%s', xxNumToHexStr(char(str(1))),str(2:end));
         end
     end
     if(isempty(regexp(str,'[^0-9A-Za-z_]', 'once' ))) return;  end
