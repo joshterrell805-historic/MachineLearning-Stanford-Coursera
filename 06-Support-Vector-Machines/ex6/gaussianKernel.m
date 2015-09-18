@@ -16,6 +16,10 @@ sim = 0;
 %
 %
 
+sim = -sum((x1 - x2) .^ 2);
+sim = sim / (2 * sigma ^ 2);
+sim = exp(sim);
+
 
 
 
